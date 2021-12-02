@@ -30,25 +30,23 @@ def work(url):
     """ Requesting JSON data (free seats) """
     print("Запускаем мониторинг: " + url) 
 
+    current_number_of_seats = 0
+
     while True:
         try:
-            # Sending requests in order to get two responses (old and new)
             response = requests.get(url)
             json_data = json.loads(response.text)
             number_of_seats = json_data["response"]["event"]["free_places_count"]
 
-            time.sleep(interval)
-
-            response = requests.get(url)
-            json_data = json.loads(response.text)
-            new_number_of_seats = json_data["response"]["event"]["free_places_count"]
-
-            if new_number_of_seats > number_of_seats:
+             if number_of_seats > current_number_of_seats:
+                current_number_of_seats = number_of_seats
                 print("Новые билеты по " + url)
 
                 for i in range(3):
                     playsound("success.mp3")
                     time.sleep(1) 
+
+            time.sleep(interval)
         except Exception:
             print("\n\n!!!ВОЗНИКЛА НЕИЗВЕСТНАЯ ОШИБКА!!!")
 
