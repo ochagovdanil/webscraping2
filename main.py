@@ -38,7 +38,7 @@ def work(url):
             json_data = json.loads(response.text)
             number_of_seats = json_data["response"]["event"]["free_places_count"]
 
-             if number_of_seats > current_number_of_seats:
+            if number_of_seats > current_number_of_seats:
                 current_number_of_seats = number_of_seats
                 print(f"Новые билеты по {url}")
 
