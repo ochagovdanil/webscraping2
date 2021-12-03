@@ -28,7 +28,7 @@ for i in range(number_of_urls):
 
 def work(url):
     """ Requesting JSON data (free seats) """
-    print("Запускаем мониторинг: " + url) 
+    print(f"Запускаем мониторинг: {url}") 
 
     current_number_of_seats = 0
 
@@ -40,21 +40,15 @@ def work(url):
 
              if number_of_seats > current_number_of_seats:
                 current_number_of_seats = number_of_seats
-                print("Новые билеты по " + url)
+                print(f"Новые билеты по {url}")
 
                 for i in range(3):
                     playsound("success.mp3")
                     time.sleep(1) 
-
-            time.sleep(interval)
         except Exception:
-            print("\n\n!!!ВОЗНИКЛА НЕИЗВЕСТНАЯ ОШИБКА!!!")
-
-            for i in range(5):
-                playsound("error.mp3")
-                time.sleep(1)
-
-            exit()
+            print(f"ВОЗНИКЛА НЕИЗВЕСТНАЯ ОШИБКА ПО URL = {url}")
+        finally:
+            time.sleep(interval)
 
 
 # Spawning our threads
